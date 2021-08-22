@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/make_goro",
+        "function": "make_goro"
+      }, 
+      {
         "source": "**",
         "destination": "/index.html"
       }
