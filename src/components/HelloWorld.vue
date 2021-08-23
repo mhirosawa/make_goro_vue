@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     callMakeGoro: async function () {
-      const url = "/make_goro?keyword=test&type=json";
+      const url = "/make_goro?type=json&keyword=" + this.keyword;
       const headers = {};
       const resMakeGoro = {
         response: undefined,
