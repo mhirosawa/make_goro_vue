@@ -1,6 +1,5 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
     <div id="app-5">
       <input v-model="keyword" />
       <button v-on:click="callMakeGoro">語呂作成</button>
