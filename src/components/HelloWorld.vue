@@ -4,7 +4,7 @@
       <input v-model="keyword" />
       <button v-on:click="callMakeGoro">語呂作成</button>
     </div>
-    <div>
+    <div class="result_list">
       <div v-for="result in results" v-bind:key="result.id">
         {{ result.text }}
       </div>
@@ -82,5 +82,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.result_list {
+  text-align: left;
 }
 </style>
