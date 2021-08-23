@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "GoroMain",
   data() {
     return {
       msg: "OK",
