@@ -35,14 +35,14 @@ export const makeStatusObj = function () {
 		/**
 		 * Html出力するかどうか
 		 */
-		PrintHtml: false,
+		PrintHtml: true,
 
 		/**
 		 * HTML出力する場合の文字列
 		 */
 		PrintHtmlStr: '',
 
-		MakeJson: true,
+		MakeJson: false,
 
 		ResponseJson: {
 			candidates: []

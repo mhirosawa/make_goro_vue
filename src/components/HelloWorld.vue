@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     callMakeGoro: async function () {
-      const url = "/make_goro?keyword=test";
+      const url = "/make_goro?keyword=test&type=json";
       const headers = {};
       const resMakeGoro = {
         response: undefined,

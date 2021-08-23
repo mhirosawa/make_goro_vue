@@ -15,11 +15,22 @@ exports.make_goro = functions.https.onRequest(async (request, response) => {
 	if (request.query.limit || request.body.limit) {
 		limit = parseInt(request.query.limit || request.body.limit);
 	}
+
+	if (request.query.type || request.body.type) {
+		if (request.query.type == "json") {
+			statusObj.PrintHtml = false;
+			statusObj.MakeJson = true;
+		}
+	}
+
 	await find_goro(statusObj, keyword, limit);
 	//console.log( "main : " + str );
 	response.set('Cache-Control', 'no-cache');
-	//response.send( statusObj.PrintHtmlStr );
-	response.send(JSON.stringify(statusObj.ResponseJson));
+	if (statusObj.MakeJson) {
+		response.send(JSON.stringify(statusObj.ResponseJson));
+	} else {
+		response.send(statusObj.PrintHtmlStr);
+	}
 
 });
 
