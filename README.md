@@ -24,11 +24,26 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
+■ビルド
+
+npm run build
+
+npm run build-local
+
+npm run build-prod
+
+
 ■ローカルデバッグ実行
 
 firebase serve --only hosting,functions
 
 npm run serve
+
+npm run serve-local
+
+npm run serve-prod
+
+
 
 
 ■デプロイ
