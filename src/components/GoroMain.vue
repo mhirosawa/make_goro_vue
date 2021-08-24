@@ -5,7 +5,7 @@
       <button v-on:click="callMakeGoro">語呂作成</button>
     </div>
     <div class="result_list">
-      <div v-for="result in results" v-bind:key="result.id">
+      <div class="result_item" v-for="result in results" v-bind:key="result.id">
         {{ result.text }}
       </div>
     </div>
@@ -28,7 +28,10 @@ export default {
   },
   methods: {
     callMakeGoro: async function () {
-      const url = "/make_goro?type=json&keyword=" + this.keyword;
+      //const url = "/make_goro?type=json&keyword=" + this.keyword;
+      const url =
+        "http://localhost:5000/makegoro/us-central1/make_goro?type=json&keyword=" +
+        this.keyword;
       const headers = {};
       const resMakeGoro = {
         response: undefined,
@@ -85,5 +88,12 @@ a {
 }
 .result_list {
   text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.result_item {
+  border-bottom: 1px solid #8888;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 </style>
