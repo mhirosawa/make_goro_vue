@@ -22,3 +22,17 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+■ローカルデバッグ実行
+
+firebase serve --only hosting,functions
+
+npm run serve
+
+
+■デプロイ
+
+firebase deploy --only hosting,functions
+
+

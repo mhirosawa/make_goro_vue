@@ -24,8 +24,10 @@ exports.make_goro = functions.https.onRequest(async (request, response) => {
 	}
 
 	await find_goro(statusObj, keyword, limit);
-	//console.log( "main : " + str );
+
 	response.set('Cache-Control', 'no-cache');
+	response.set('Access-Control-Allow-Origin', '*');
+
 	if (statusObj.MakeJson) {
 		response.send(JSON.stringify(statusObj.ResponseJson));
 	} else {
