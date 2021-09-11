@@ -28,8 +28,9 @@ export default {
   },
   methods: {
     callMakeGoro: async function () {
-      const url =
-        process.env.VUE_APP_API_BASE_URL + "/make_goro?type=json&keyword=" + this.keyword;
+      //const url =
+      //  process.env.VUE_APP_API_BASE_URL + "/make_goro?type=json&keyword=" + this.keyword;
+      const url = "/make_goro?type=json&keyword=" + this.keyword;
       const headers = {};
       const resMakeGoro = {
         response: undefined,
@@ -37,7 +38,7 @@ export default {
       };
       try {
         resMakeGoro.response = await fetch(url, {
-          method: "POST",
+          method: "GET",
           headers: headers,
           body: null,
         });
