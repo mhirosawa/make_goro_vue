@@ -268,6 +268,96 @@ const getPronounce2 = async (statusObj, englishWord) => {
 
 
 /**
+ * 英単語の発音記号文字列を取得する
+ * @param {String} englishWord 英単語
+ * @returns 発音記号文字列
+ */
+const getPronounce3 = async (statusObj, englishWord) => {
+
+	let url = 'http://www.speech.cs.cmu.edu/cgi-bin/cmudict?in=' + englishWord + '#lookup';
+
+	try {
+		let response = await fetch(url, {
+			method: "GET"
+		});
+
+		if (response.ok) {
+			let body = await response.text();
+			//printLog( statusObj,  "body : " + body);
+
+			let firstTTStart = body.indexOf('<tt>');
+			if (firstTTStart == -1) {
+				//printLog( statusObj, "Error:can't find pronouce tag.");
+				return "";
+			}
+			let nextTTtart = body.indexOf('<tt>', firstTTStart + 1);
+			let nextTTEnd = body.indexOf('</tt>', nextTTtart + 1);
+
+			let pron = body.substring(nextTTtart + 4, nextTTEnd - 2).toLowerCase();
+
+			//console.log("発音 : " + pron);
+
+			const ARPABETs = pron.split(' ');
+			let ipa_pron = '';
+			for (let i = 0; i < ARPABETs.length; i++) {
+				let ipa = GARPABETtoIPA[ARPABETs[i].toUpperCase()];
+				if (ipa == null) {
+					ipa_pron += ARPABETs[i];
+				} else {
+					ipa_pron += ipa;
+				}
+			}
+
+			//console.log("IPA発音 : " + ipa_pron);
+			//return;
+
+			printLog(statusObj, "発音 : " + ipa_pron);
+
+			return ipa_pron;
+		}
+
+	} catch (e) {
+		// エラー処理
+		console.log("Error:" + e.message);
+		return '';
+		printLog(statusObj, "Error:" + e.message);
+		return "";
+	}
+
+}
+
+
+/**
+ * GARPABETからIPAへの変換テーブル
+ */
+const GARPABETtoIPA = {
+	'AA': 'ɑ',
+	'AE': 'æ',
+	'AH': 'ʌ',
+	'AO': 'ɔ',
+	'AW': 'aʊ',
+	'AY': 'aɪ',
+	'CH': 'tʃ',
+	'DH': 'ð',
+	'EH': 'e', // 'ɛ'は無い
+	'ER': 'ɜ', // 'ɝ'は無い
+	'EY': 'eɪ',
+	'HH': 'h',
+	'IH': 'ɪ',
+	'IY': 'i',
+	'JH': 'dʒ',
+	'NG': 'ŋ',
+	'OW': 'oʊ',
+	'OY': 'ɔɪ',
+	'SH': 'ʃ',
+	'TH': 'θ',
+	'UH': 'ʊ',
+	'UW': 'u',
+	'Y': 'j',
+	'ZH': 'ʒ'
+}
+
+/**
  * 日本語の語尾の活用パターン
  */
 const GJapaneseKatusyoGobiTable = {
@@ -734,7 +824,8 @@ export const find_goro = async (statusObj, englishword, limit) => {
 
 	//let englishword = process.argv[2];
 	//let pronounce = await getPronounce( "abrogate" );
-	let pronounce = await getPronounce2(statusObj, englishword);
+	//let pronounce = await getPronounce2(statusObj, englishword);
+	let pronounce = await getPronounce3(statusObj, englishword);
 
 	//pronounce = 'haida';
 
