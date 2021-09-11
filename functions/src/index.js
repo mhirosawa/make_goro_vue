@@ -8,30 +8,36 @@ import functions from "firebase-functions";
 exports.make_goro = functions.https.onRequest(async (request, response) => {
 	//  functions.logger.info("Hello logs!", {structuredData: true});
 
-	let statusObj = makeStatusObj();
+	try {
 
-	let keyword = request.query.keyword || request.body.keyword;
-	let limit = 20;
-	if (request.query.limit || request.body.limit) {
-		limit = parseInt(request.query.limit || request.body.limit);
-	}
+		let statusObj = makeStatusObj();
 
-	if (request.query.type || request.body.type) {
-		if (request.query.type == "json") {
-			statusObj.PrintHtml = false;
-			statusObj.MakeJson = true;
+		let keyword = request.query.keyword || request.body.keyword;
+		let limit = 20;
+		if (request.query.limit || request.body.limit) {
+			limit = parseInt(request.query.limit || request.body.limit);
 		}
-	}
 
-	await find_goro(statusObj, keyword, limit);
+		if (request.query.type || request.body.type) {
+			if (request.query.type == "json") {
+				statusObj.PrintHtml = false;
+				statusObj.MakeJson = true;
+			}
+		}
 
-	response.set('Cache-Control', 'no-cache');
-	response.set('Access-Control-Allow-Origin', '*');
+		await find_goro(statusObj, keyword, limit);
 
-	if (statusObj.MakeJson) {
-		response.send(JSON.stringify(statusObj.ResponseJson));
-	} else {
-		response.send(statusObj.PrintHtmlStr);
+		response.set('Cache-Control', 'no-cache');
+		response.set('Access-Control-Allow-Origin', '*');
+
+		if (statusObj.MakeJson) {
+			response.send(JSON.stringify(statusObj.ResponseJson));
+		} else {
+			response.send(statusObj.PrintHtmlStr);
+		}
+
+	} catch (e) {
+		console.log("Exception:" + e.message);
 	}
 
 });
