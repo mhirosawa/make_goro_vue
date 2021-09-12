@@ -45,21 +45,47 @@ export const makeStatusObj = function () {
 		MakeJson: false,
 
 		ResponseJson: {
+			/**
+			 * キーワード
+			 */
+			keyword: '',
+
+			/**
+			 * 発音記号
+			 */
+			pronounce: '',
+
+			/**
+			 * 日本語文字の候補配列
+			 */
+			jCharsCandidates: [],
+
 			candidates: []
-		}
+		},
+
 	};
 }
 
 /**
  * ログ出力。HTMLとconsole.logを振り分ける。
+ * @param {StatusObj} statusObj ステータスオブジェクト
  * @param {String} msg 出力する文字列
+ * @param {String} tag タグ文字列
  */
-function printLog(statusObj, msg) {
+function printLog(statusObj, msg, tag) {
 
 	if (statusObj.PrintHtml) {
 		statusObj.PrintHtmlStr += msg + "<br/>\n";
 	} else if (statusObj.MakeJson) {
-		statusObj.ResponseJson.candidates.push(msg);
+		if (tag == 'keyword') {
+			statusObj.ResponseJson.keyword = msg;
+		} else if (tag == 'pronounce') {
+			statusObj.ResponseJson.pronounce = msg;
+		} else if (tag == 'jCharsCandidates') {
+			statusObj.ResponseJson.jCharsCandidates.push(msg);
+		} else {
+			statusObj.ResponseJson.candidates.push(msg);
+		}
 	} else {
 		console.log(msg);
 	}
@@ -287,7 +313,8 @@ const getPronounce3 = async (statusObj, englishWord) => {
 			//console.log("IPA発音 : " + ipa_pron);
 			//return;
 
-			printLog(statusObj, "発音 : " + ipa_pron);
+			printLog(statusObj, "発音 : " + ipa_pron, 'pronounce');
+			//statusObj.ResponseJson.pronounce = ipa_pron;
 
 			return ipa_pron;
 		}
@@ -794,7 +821,8 @@ export const find_goro = async (statusObj, englishword, limit) => {
 	// 自作データ
 	//await readDictData( '../dict/my_juman.dic' );
 
-	printLog(statusObj, "keyword : " + englishword);
+	//printLog(statusObj, "keyword : " + englishword, 'keyword');
+	statusObj.ResponseJson.keyword = englishword;
 
 	let GKeyword = 'あぶらげいと';
 
@@ -809,6 +837,8 @@ export const find_goro = async (statusObj, englishword, limit) => {
 		console.error("can't get pronounce of '" + englishword + "'.");
 		return "can't get pronounce of '" + englishword + "'.";
 	}
+
+	//this.pronounce = "test";
 
 	let siinBoinTableArray = getJapaneseWords(statusObj, pronounce);
 
@@ -829,10 +859,12 @@ export const find_goro = async (statusObj, englishword, limit) => {
 			}
 			str += addStr;
 		}
-		printLog(statusObj, "候補：'" + str + "'");
+		printLog(statusObj, "候補：'" + str + "'", "jCharsCandidates");
 	}
 
 	findEachCombinationGoro(statusObj, '', siinBoinTableArray, 0, 0, 0);
+
+	//this.pronounce = statusObj.ResponseJson.pronounce;
 
 	printSortedPointAndGoro(statusObj, limit);
 

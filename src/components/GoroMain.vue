@@ -4,6 +4,16 @@
       <input v-model="keyword" v-on:keyup.enter="callMakeGoro" />
       <button v-on:click="callMakeGoro">語呂作成</button>
     </div>
+    <div class="pronounce">{{ pronounce }}</div>
+    <div class="jCharsCandidates">
+      <div
+        class="jCharsCandidate_item"
+        v-for="jCharsCandidate in jCharsCandidates"
+        v-bind:key="jCharsCandidate.id"
+      >
+        {{ jCharsCandidate.text }}
+      </div>
+    </div>
     <div class="result_list">
       <div class="result_item" v-for="result in results" v-bind:key="result.id">
         {{ result.text }}
@@ -20,6 +30,7 @@ export default {
     return {
       msg: "OK",
       keyword: "test",
+      pronounce: "",
       results: [
         { id: 1, text: "res1" },
         { id: 2, text: "res2" },
@@ -62,6 +73,18 @@ export default {
         //this.results[0].text = text;
         let jsonObj = await resMakeGoro.response.json();
         console.log("jsonObj : " + JSON.stringify(jsonObj));
+
+        // 発音
+        this.pronounce = jsonObj.pronounce;
+
+        // 文字候補
+        this.jCharsCandidates = [];
+        for (let i = 0; i < jsonObj.jCharsCandidates.length; i++) {
+          console.log("[" + i + "] : " + jsonObj.jCharsCandidates[i]);
+          this.jCharsCandidates.push({ id: i, text: jsonObj.jCharsCandidates[i] });
+        }
+
+        // 語呂候補
         this.results = [];
         for (let i = 0; i < jsonObj.candidates.length; i++) {
           console.log("[" + i + "] : " + jsonObj.candidates[i]);
@@ -91,6 +114,16 @@ li {
 }
 a {
   color: #42b983;
+}
+.pronounce {
+  text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.jCharsCandidates {
+  text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 .result_list {
   text-align: left;
