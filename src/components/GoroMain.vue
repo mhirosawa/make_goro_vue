@@ -9,7 +9,7 @@
         {{ result.text }}
       </div>
     </div>
-    <img class="center-none" v-show="loading_disp" src="@/assets/img/loading.gif" />
+    <img class="center-none" v-show="loading_disp" src="@/assets/img/loading.svg" />
   </div>
 </template>
 
