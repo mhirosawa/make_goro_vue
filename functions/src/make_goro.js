@@ -859,7 +859,8 @@ export const find_goro = async (statusObj, englishword, limit) => {
 			}
 			str += addStr;
 		}
-		printLog(statusObj, "候補：'" + str + "'", "jCharsCandidates");
+		//printLog(statusObj, "候補：'" + str + "'", "jCharsCandidates");
+		printLog(statusObj, str + "'", "jCharsCandidates");
 	}
 
 	findEachCombinationGoro(statusObj, '', siinBoinTableArray, 0, 0, 0);

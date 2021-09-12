@@ -1,11 +1,13 @@
 <template>
   <div class="hello">
-    <div id="app-5">
-      <input v-model="keyword" v-on:keyup.enter="callMakeGoro" />
-      <button v-on:click="callMakeGoro">語呂作成</button>
+    <div>語呂作成</div>
+    <div class="input-all">
+      <input class="input" v-model="keyword" v-on:keyup.enter="callMakeGoro" />
+      <button class="input_submti" v-on:click="callMakeGoro">語呂作成</button>
     </div>
     <div class="pronounce">{{ pronounce }}</div>
     <div class="jCharsCandidates">
+      <div>文字候補：</div>
       <div
         class="jCharsCandidate_item"
         v-for="jCharsCandidate in jCharsCandidates"
@@ -15,6 +17,7 @@
       </div>
     </div>
     <div class="result_list">
+      <div>語呂候補：</div>
       <div class="result_item" v-for="result in results" v-bind:key="result.id">
         {{ result.text }}
       </div>
@@ -31,11 +34,7 @@ export default {
       msg: "OK",
       keyword: "test",
       pronounce: "",
-      results: [
-        { id: 1, text: "res1" },
-        { id: 2, text: "res2" },
-        { id: 3, text: "res3" },
-      ],
+      results: [],
       loading_disp: false,
     };
   },
@@ -101,39 +100,50 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.hello {
+  background-color: #d6cdc5;
+  padding: 20px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.input-all {
+  padding-bottom: 20px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.input {
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 10px;
 }
-a {
-  color: #42b983;
+.input_submti {
+  padding: 10px;
+  border-radius: 10px;
 }
 .pronounce {
   text-align: left;
-  margin-left: 20px;
-  margin-right: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
 }
 .jCharsCandidates {
   text-align: left;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+}
+.jCharsCandidate_item {
   margin-left: 20px;
-  margin-right: 20px;
 }
 .result_list {
   text-align: left;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
 }
 .result_item {
   border-bottom: 1px solid #8888;
   padding-top: 2px;
   padding-bottom: 2px;
+  margin-left: 20px;
 }
 .center-none {
   position: absolute;
