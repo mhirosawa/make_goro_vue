@@ -3,6 +3,16 @@
     <div id="all-title">語呂作成マシーン</div>
     <div class="input-all">
       <input class="input" v-model="keyword" v-on:keyup.enter="callMakeGoro" />
+      <select class="search_num" v-model="selectedSearchNum">
+        <option disabled value="">候補数</option>
+        <option
+          v-for="searchNum in optionSearchNum"
+          v-bind:value="searchNum.num"
+          v-bind:key="searchNum.id"
+        >
+          {{ searchNum.num }}
+        </option>
+      </select>
       <button class="input_submti" v-on:click="callMakeGoro">語呂作成</button>
     </div>
     <div class="pronounce">{{ pronounce }}</div>
@@ -36,12 +46,22 @@ export default {
       pronounce: "",
       results: [],
       loading_disp: false,
+      selectedSearchNum: 20,
+      optionSearchNum: [
+        { id: 1, num: 20 },
+        { id: 2, num: 30 },
+        { id: 3, num: 50 },
+      ],
     };
   },
   methods: {
     callMakeGoro: async function () {
       const url =
-        process.env.VUE_APP_API_BASE_URL + "/make_goro?type=json&keyword=" + this.keyword;
+        process.env.VUE_APP_API_BASE_URL +
+        "/make_goro?type=json&keyword=" +
+        this.keyword +
+        "&limit=" +
+        this.selectedSearchNum;
       //const url = "/make_goro?type=json&keyword=" + this.keyword;
       const headers = {};
       const resMakeGoro = {
@@ -113,6 +133,11 @@ export default {
   padding-bottom: 20px;
 }
 .input {
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.search_num {
   margin-right: 10px;
   padding: 10px;
   border-radius: 10px;
