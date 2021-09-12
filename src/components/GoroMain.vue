@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <div>語呂作成</div>
+    <div id="all-title">語呂作成マシーン</div>
     <div class="input-all">
       <input class="input" v-model="keyword" v-on:keyup.enter="callMakeGoro" />
       <button class="input_submti" v-on:click="callMakeGoro">語呂作成</button>
@@ -87,7 +87,7 @@ export default {
         this.results = [];
         for (let i = 0; i < jsonObj.candidates.length; i++) {
           console.log("[" + i + "] : " + jsonObj.candidates[i]);
-          this.results.push({ id: i, text: jsonObj.candidates[i] });
+          this.results.push({ id: i, text: jsonObj.candidates[i].goro });
         }
       }
 
@@ -103,6 +103,11 @@ export default {
 .hello {
   background-color: #d6cdc5;
   padding: 20px;
+}
+#all-title {
+  margin-bottom: 20px;
+  font-size: 200%;
+  color: white;
 }
 .input-all {
   padding-bottom: 20px;

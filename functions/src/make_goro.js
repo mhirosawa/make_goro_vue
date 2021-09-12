@@ -798,7 +798,8 @@ function printSortedPointAndGoro(statusObj, maxNum) {
 		let pointAndGoro = statusObj.PointAndGoroArray[i];
 		let goroStr = pointAndGoro.goroStr.substr(0, pointAndGoro.goroStr.length - 3); // 末尾の「 /」を除去
 		//printLog( statusObj,  "No." + (i+1) + " [" + pointAndGoro.point + "] : " + goroStr );
-		printLog(statusObj, "No." + (i + 1) + " [" + pointAndGoro.point + "] : " + goroStr);
+		//printLog(statusObj, "No." + (i + 1) + " [" + pointAndGoro.point + "] : " + goroStr);
+		printLog(statusObj, { no: i + 1, point: pointAndGoro.point, goro: goroStr });
 	}
 
 	//	return statusObj.PrintHtmlStr;
