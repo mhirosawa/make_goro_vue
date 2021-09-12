@@ -87,46 +87,22 @@ function getGoroFromHead(statusObj, word) {
 			hitWord.push(GMeishiTable[subWord]);
 		}
 		if (G動詞Table[subWord] != undefined) {
-			if (hitWord != undefined && hitWord.length != 0) {
-				hitWord.push(G動詞Table[subWord]);
-			} else {
-				hitWord = G動詞Table[subWord];
-			}
+			hitWord.push(G動詞Table[subWord]);
 		}
 		if (G形容詞Table[subWord] != undefined) {
-			if (hitWord != undefined && hitWord.length != 0) {
-				hitWord.push(G形容詞Table[subWord]);
-			} else {
-				hitWord = G形容詞Table[subWord];
-			}
+			hitWord.push(G形容詞Table[subWord]);
 		}
 		if (G副詞Table[subWord] != undefined) {
-			if (hitWord != undefined && hitWord.length != 0) {
-				hitWord.push(G副詞Table[subWord]);
-			} else {
-				hitWord = G副詞Table[subWord];
-			}
+			hitWord.push(G副詞Table[subWord]);
 		}
 		if (G感動詞Table[subWord] != undefined) {
-			if (hitWord != undefined && hitWord.length != 0) {
-				hitWord.push(G感動詞Table[subWord]);
-			} else {
-				hitWord = G感動詞Table[subWord];
-			}
+			hitWord.push(G感動詞Table[subWord]);
 		}
 		if (G接続詞Table[subWord] != undefined) {
-			if (hitWord != undefined && hitWord.length != 0) {
-				hitWord.push(G接続詞Table[subWord]);
-			} else {
-				hitWord = G接続詞Table[subWord];
-			}
+			hitWord.push(G接続詞Table[subWord]);
 		}
 		if (G連体詞Table[subWord] != undefined) {
-			if (hitWord != undefined && hitWord.length != 0) {
-				hitWord.push(G連体詞Table[subWord]);
-			} else {
-				hitWord = G連体詞Table[subWord];
-			}
+			hitWord.push(G連体詞Table[subWord]);
 		}
 		if (hitWord != undefined && hitWord.length != 0) {
 			let forwardedCandidateObjArray = [];
