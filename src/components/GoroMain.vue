@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div id="app-5">
-      <input v-model="keyword" />
+      <input v-model="keyword" v-on:keyup.enter="callMakeGoro" />
       <button v-on:click="callMakeGoro">語呂作成</button>
     </div>
     <div class="result_list">
