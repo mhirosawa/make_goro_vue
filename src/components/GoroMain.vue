@@ -9,6 +9,7 @@
         {{ result.text }}
       </div>
     </div>
+    <img class="center-none" v-show="loading_disp" src="@/assets/img/loading.gif" />
   </div>
 </template>
 
@@ -24,6 +25,7 @@ export default {
         { id: 2, text: "res2" },
         { id: 3, text: "res3" },
       ],
+      loading_disp: false,
     };
   },
   methods: {
@@ -36,6 +38,9 @@ export default {
         response: undefined,
         json_body: undefined,
       };
+
+      this.loading_disp = true;
+
       try {
         resMakeGoro.response = await fetch(url, {
           method: "GET",
@@ -47,6 +52,8 @@ export default {
         console.log("Error:" + e.message);
         return "NG";
       }
+
+      this.loading_disp = false;
 
       if (resMakeGoro.response.ok) {
         //resServicein.json_body = await resMakeGoro.response.json();
@@ -94,5 +101,12 @@ a {
   border-bottom: 1px solid #8888;
   padding-top: 2px;
   padding-bottom: 2px;
+}
+.center-none {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
 }
 </style>
