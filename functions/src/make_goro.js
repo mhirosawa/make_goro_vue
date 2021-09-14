@@ -3,24 +3,6 @@ import { GMeishiTable, G動詞Table, G形容詞Table, G副詞Table, G接続詞Ta
 
 
 /**
- * ポイントと候補文字列のオブジェクトの配列
- */
-// let GPointAndGoroArray = [];
-
-
-/**
- * Html出力するかどうか
- */
-// let GPrintHtml = true;
-
-/**
- * HTML出力する場合の文字列
- */
-// let GPrintHtmlStr = '';
-
-
-
-/**
  * 状態を保持するオブジェクトを返す
  * @returns 状態を保持するオブジェクト
  */
@@ -132,18 +114,13 @@ function getGoroFromHead(statusObj, word) {
 		}
 		if (hitWord != undefined && hitWord.length != 0) {
 			let forwardedCandidateObjArray = [];
-			//hitWord.shift( subWord );
 			if (leftWord.length != 0) {
 				forwardedCandidateObjArray = getGoroFromHead(statusObj, leftWord);
 				called = true;
 			} else {
 				//printLog( statusObj,  "最終候補：" + allStr );
 			}
-			//let point = hitWord[0].length; // 文字列長さをポイントとする
 			let point = subWord.length; // 文字列長さをポイントとする
-			//if ( 3 <= point ) {
-			//	point = 10 * point;
-			//}
 			switch (subWord.length) {
 				case 1:
 					point = 1;
@@ -204,69 +181,6 @@ function findGoro(statusObj, word) {
 }
 
 
-/**
- * 英単語の発音記号文字列を取得する
- * @param {String} englishWord 英単語
- * @returns 発音記号文字列
- */
-const getPronounce2 = async (statusObj, englishWord) => {
-
-	let url = 'https://www.ldoceonline.com/jp/dictionary/' + englishWord;
-
-	try {
-		let response = await fetch(url, {
-			method: "GET"
-		});
-
-		if (response.ok) {
-			let body = await response.text();
-			//printLog( statusObj,  "body : " + body);
-
-			/*
-						const dom = new JSDOM(body);
-			
-						let pronElement = dom.window.document.getElementsByClassName('PRON');
-						//printLog( statusObj,  pronElement[0].textContent );
-			
-						if ( pronElement == null ) {
-							// 抽出エラー
-							//printLog( statusObj,  body );
-							return "";
-						}
-						let pron = pronElement[0].textContent;
-			*/
-
-			let firstSpanStart = body.indexOf('<span class="PRON">');
-			if (firstSpanStart == -1) {
-				//printLog( statusObj, "Error:can't find pronouce tag.");
-				return "";
-			}
-			let nextSpanStart = body.indexOf('<span', firstSpanStart + 1);
-			let nextSpanEnd = body.indexOf('</span', firstSpanStart + 1);
-			if (nextSpanStart < nextSpanEnd) {
-				// 内部にspanがあるので、その次とする
-				nextSpanEnd = body.indexOf('</span', nextSpanEnd + 1);
-			}
-
-			let pron = body.substring(firstSpanStart + 19, nextSpanEnd);
-			pron = pron.replace(/<span[^>]*>/g, '').replace(/<\/span>/g, '');
-
-
-			if (pron.indexOf(',') != -1) {
-				pron = pron.substring(0, pron.indexOf(','));
-			}
-			printLog(statusObj, "発音 : " + pron);
-
-			return pron;
-		}
-
-	} catch (e) {
-		// エラー処理
-		printLog(statusObj, "Error:" + e.message);
-		return "";
-	}
-
-}
 
 
 /**
@@ -822,24 +736,14 @@ export const find_goro = async (statusObj, englishword, limit) => {
 	// 自作データ
 	//await readDictData( '../dict/my_juman.dic' );
 
-	//printLog(statusObj, "keyword : " + englishword, 'keyword');
 	statusObj.ResponseJson.keyword = englishword;
 
-	let GKeyword = 'あぶらげいと';
-
-	//let englishword = process.argv[2];
-	//let pronounce = await getPronounce( "abrogate" );
-	//let pronounce = await getPronounce2(statusObj, englishword);
 	let pronounce = await getPronounce3(statusObj, englishword);
-
-	//pronounce = 'haida';
 
 	if (pronounce == '') {
 		console.error("can't get pronounce of '" + englishword + "'.");
 		return "can't get pronounce of '" + englishword + "'.";
 	}
-
-	//this.pronounce = "test";
 
 	let siinBoinTableArray = getJapaneseWords(statusObj, pronounce);
 
@@ -860,13 +764,10 @@ export const find_goro = async (statusObj, englishword, limit) => {
 			}
 			str += addStr;
 		}
-		//printLog(statusObj, "候補：'" + str + "'", "jCharsCandidates");
 		printLog(statusObj, str + "'", "jCharsCandidates");
 	}
 
 	findEachCombinationGoro(statusObj, '', siinBoinTableArray, 0, 0, 0);
-
-	//this.pronounce = statusObj.ResponseJson.pronounce;
 
 	printSortedPointAndGoro(statusObj, limit);
 
