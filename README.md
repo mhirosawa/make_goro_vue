@@ -51,7 +51,12 @@ M. HIROSAWA  ( healthcare.lab188@gmail.com )
 
 ## 謝辞
 
-辞書データとして、[JUMAN Ver.7.01](https://nlp.ist.i.kyoto-u.ac.jp/?JUMAN)を使わせて頂いております。このようなデータを公開していただき、JUMANの開発者・関係者に感謝しております。
+英単語の発音データとして[The CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict)を使わせていただいております。
 
+辞書データとして、[JUMAN Ver.7.01](https://nlp.ist.i.kyoto-u.ac.jp/?JUMAN)を使わせて頂いております。
+
+語呂合わせのパターン解析の元データとして[英単語語呂合わせ](http://aoki2.ninja-web.net/goro.htm)を使わせていただいております。
+
+このようなデータを公開していただき、それぞれの開発者・関係者にお礼申し上げさせていただきます。
 
 

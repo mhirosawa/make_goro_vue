@@ -62033,6 +62033,9 @@ export const GMeishiTable = {
 	],
 	"わんわん": [
 		"ワンワン"
+	],
+	"ぷっと": [
+		"ぷっと"
 	]
 };
 export const G動詞Table = {

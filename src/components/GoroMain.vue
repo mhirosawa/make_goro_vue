@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <div id="all-title">語呂作成マシーン</div>
+    <div id="all-title">英単語語呂作成マシーン</div>
     <div class="input-all">
       <input class="input" v-model="keyword" v-on:keyup.enter="callMakeGoro" />
       <select class="search_num" v-model="selectedSearchNum">
@@ -32,6 +32,7 @@
         {{ result.text }}
       </div>
     </div>
+    <div id="about"><a href="https://github.com/mhirosawa/make_goro_vue">About</a></div>
     <img class="center-none" v-show="loading_disp" src="@/assets/img/loading.svg" />
   </div>
 </template>
@@ -174,6 +175,9 @@ export default {
   padding-top: 2px;
   padding-bottom: 2px;
   margin-left: 20px;
+}
+#about {
+  margin-top: 20px;
 }
 .center-none {
   position: absolute;
