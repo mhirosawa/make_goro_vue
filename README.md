@@ -1,5 +1,9 @@
 # make_goro_vue
 
+## このアプリについて
+
+詳細は[Qiitaの記事](https://qiita.com/nokoribi/items/bcd872ec0feefe7b2c36)をご参照ください。
+
 ## 開発環境
 
 node.js, npm, Firebase CLI(Hosting, Functions)
