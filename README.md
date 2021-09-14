@@ -1,20 +1,24 @@
 # make_goro_vue
 
+## 開発環境
+
+node.js, npm, Firebase CLI(Hosting, Functions)
+
 ## ビルド
 
-### ローカルPCでの実行用
+### Vue.jsアプリのローカルPCでの実行用ビルド
 ```
 npm run build-local
 ```
 
-### サーバ用での実行用
+### Vue.jsアプリのサーバデプロイ用ビルド
 ```
 npm run build-prod
 ```
 
 ## デプロイ
 
-### Google Firebase hostingとfunctionsへのデプロイ
+### Google Firebase HostingとFunctionsへのデプロイ
 ```
 firebase deploy --only hosting,functions
 ```
@@ -36,12 +40,18 @@ npm run serve-local
 npm run serve-prod
 ```
 
+## 著者
+
+M. HIROSAWA  ( healthcare.lab188@gmail.com )
+
 
 ## ライセンス
 
-This software includes the work that is distributed in the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-このソフトウェアは、 [Apache 2.0ライセンス](http://www.apache.org/licenses/LICENSE-2.0)で配布されている製作物が含まれています。
+## 謝辞
+
+辞書データとして、[JUMAN Ver.7.01](https://nlp.ist.i.kyoto-u.ac.jp/?JUMAN)を使わせて頂いております。このようなデータを公開していただき、JUMANの開発者・関係者に感謝しております。
 
 
 
